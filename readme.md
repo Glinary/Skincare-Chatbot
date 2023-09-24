@@ -1,7 +1,8 @@
 # NOTICE
-The bot is currently hosted 24/7 using Glitch. Check the [server](https://hissing-gamy-veterinarian.glitch.me/) if you would like to check if it is still running.
+The bot is currently hosted 24/7 using Glitch. You may [check the server](https://hissing-gamy-veterinarian.glitch.me/) to confirm its status.
 
 # Installation
+Instructions will be updated once this project is finalized.
 
 # Dev Team
 This project was made by Gleezell Uy, Adrian Cheng, Alina Sayo, Angelo Guerra, Daniel Gutierrez, Erika Culala, Krizchelle Wong, and MJ Cabungcal.
@@ -15,3 +16,5 @@ This project was made by Gleezell Uy, Adrian Cheng, Alina Sayo, Angelo Guerra, D
 ![Glitch](https://img.shields.io/badge/Glitch-3333FF.svg?style=for-the-badge&logo=Glitch&logoColor=white)
 ![Javascript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black)
 <a href='https://wit.ai/' target="_blank"><img alt='wit.ai' src='https://img.shields.io/badge/wit.ai-100000?style=for-the-badge&logo=wit.ai&logoColor=white&labelColor=43B0A4&color=43B0A4'/></a>
+![HTML](https://img.shields.io/badge/HTML5-E34F26.svg?style=for-the-badge&logo=HTML5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6.svg?style=for-the-badge&logo=CSS3&logoColor=white)
