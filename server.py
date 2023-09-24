@@ -33,7 +33,7 @@ def verify():
     if not request.args.get("hub.verify_token") == VERIFICATION_TOKEN:
       return "Verification token mismatch", 403
     return request.args["hub.challenge"], 200
-  return "Yeehaw 🤠", 200
+  return "The server is active 🤠", 200
 
 @app.route('/', methods=['POST'])
 def webhook():
