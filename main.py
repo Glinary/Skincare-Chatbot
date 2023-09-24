@@ -1,35 +1,57 @@
 # ---------- DEPENDENCIES ---------- #
 'pip install typing'
 'pip install python-dotenv'
-'pip install fbchat'
+'pip install flask requests'
+'pip3 install messenger-api-python'
 # ---------- DEPENDENCIES ---------- #
 
 # ---------- LIBRARIES FOR PRIVATE TOKENS ---------- #
 from typing import Final
 from dotenv import load_dotenv
-import os
-# ---------- LIBRARIES FOR PRIVATE KEYS ---------- #
-# ---------- LIBRARIES FOR MESSENGER API ---------- #
-from fbchat import log, Client
-# ---------- LIBRARIES FOR MESSENGER API ---------- #
+import os, sys
+
+# ---------- LIBRARIES FOR PRIVATE TOKENS ---------- #
+# ---------- LIBRARIES FOR GLITCH, FLASK, & MESSENGER API ---------- #
+from flask import Flask, request
+from pprint import pprint
+from messengerapi import SendApi
+# ---------- LIBRARIES FOR GLITCH, FLASK, &MESSENGER API ---------- #
 
 # imports the private keys from .env file
 load_dotenv()
-FB_EMAIL: Final = os.getenv('FB_EMAIL')
-FB_PASSWORD: Final = os.getenv('FB_PASSWORD')
+VERIFICATION_TOKEN: Final = os.getenv('VERIFICATION_TOKEN')
+PAGE_ACCESS_TOKEN: Final = os.getenv('PAGE_ACCESS_TOKEN')
 
-# Subclass fbchat.Client and override required methods
-class EchoBot(Client):
-    def onMessage(self, author_id, message_object, thread_id, thread_type, **kwargs):
-        self.markAsDelivered(thread_id, message_object.uid)
-        self.markAsRead(thread_id)
+app = Flask(__name__)
+send_api = SendApi(PAGE_ACCESS_TOKEN)
 
-        log.info("{} from {} in {}".format(message_object, thread_id, thread_type.name))
+@app.route('/', methods=['GET'])
+# Webhook validation
+def verify():
+  if request.args.get("hub.mode") == "subscribe" and request.args.get("hub.challenge"):
+    # Check if the verification token matches
+    if not request.args.get("hub.verify_token") == VERIFICATION_TOKEN:
+      return "Verification token mismatch", 403
+    return request.args["hub.challenge"], 200
+  return "Yeehaw 🤠", 200
 
-        # If you're not the author, echo
-        if author_id != self.uid:
-            self.send(message_object, thread_id=thread_id, thread_type=thread_type)
+@app.route('/', methods=['POST'])
+def webhook():
+    data = request.get_json()
+    pprint(data)
+    
+    if data['object'] == 'page':
+      for entry in data['entry']:
+        for messaging_event in entry['messaging']:
+          # Retrieve the sender id
+          sender_id = messaging_event['sender']['id']
+          # Send a message to sender
+          send_api.send_text_message("hi there", sender_id)
+    
+    return 'OK', 200
+
+if __name__ == "__main__":
+	app.run(debug=True)
+  
 
 
-client = EchoBot(FB_EMAIL, FB_PASSWORD)
-client.listen()
