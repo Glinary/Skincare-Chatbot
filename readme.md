@@ -13,4 +13,4 @@ This project was made by Gleezell Uy, Adrian Cheng, Alina Sayo, Angelo Guerra, D
 ![Flask](https://img.shields.io/badge/Flask-000000.svg?style=for-the-badge&logo=Flask&logoColor=white)
 ![Glitch](https://img.shields.io/badge/Glitch-3333FF.svg?style=for-the-badge&logo=Glitch&logoColor=white)
 ![Javascript](https://img.shields.io/badge/JavaScript-F7DF1E.svg?style=for-the-badge&logo=JavaScript&logoColor=black)
-![NodeJS](https://img.shields.io/badge/Node.js-339933.svg?style=for-the-badge&logo=nodedotjs&logoColor=white)
+<a href='https://wit.ai/' target="_blank"><img alt='wit.ai' src='https://img.shields.io/badge/wit.ai-100000?style=for-the-badge&logo=wit.ai&logoColor=white&labelColor=43B0A4&color=43B0A4'/></a>
