@@ -12,7 +12,7 @@ import os, sys
 
 # ---------- LIBRARIES FOR PRIVATE TOKENS ---------- #
 # ---------- LIBRARIES FOR GLITCH, FLASK, & MESSENGER API ---------- #
-from flask import Flask, request
+from flask import Flask, request, render_template, make_response   #ERIKA_ADDED
 from pprint import pprint
 from messengerapi import SendApi
 # ---------- LIBRARIES FOR GLITCH, FLASK, &MESSENGER API ---------- #
@@ -33,7 +33,13 @@ def verify():
     if not request.args.get("hub.verify_token") == VERIFICATION_TOKEN:
       return "Verification token mismatch", 403
     return request.args["hub.challenge"], 200
-  return "The server is active 🤠", 200
+  # Render the HTML template
+  html_content = render_template("verify.html")
+  # Create a response object with both HTML content and a 200 status code
+  response = make_response(html_content)
+  response.status_code = 200
+  
+  return response
 
 @app.route('/', methods=['POST'])
 def webhook():
