@@ -1,4 +1,5 @@
-# Update
+# NOTICE
+The bot is currently hosted 24/7 using Glitch. Check the [server](https://hissing-gamy-veterinarian.glitch.me/) if you would like to check if it is still running.
 
 # Installation
 
