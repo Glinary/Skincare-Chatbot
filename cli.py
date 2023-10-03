@@ -53,14 +53,6 @@ def q_five():
         answer = input("Sorry, I didn't get that. Please try again.\n").upper()
     return answer
 
-def q_six():
-    print("Have you ever had a sunburn or noticed pigmentation changes after sun exposure?")
-    print("A. Yes")
-    print("B. No")
-    answer = input().upper()
-    while answer != "A"  and answer != "B":
-        answer = input("Sorry, I didn't get that. Please try again.\n").upper()
-    return answer
 
 def start():
     answer = input("Hello, <name>! I am the Scire Technology Bot.\nIf you'd like me to assess your skin type, press S. Otherwise, press C to quit.\n").upper()
