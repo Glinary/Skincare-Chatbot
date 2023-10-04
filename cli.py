@@ -129,6 +129,7 @@ if answer == "S" or answer == "s":
             elif answer == "C" or answer == "D":
                 skin_type = "Combination"
         else:
+            answer = q_three()
             skin_type = "Combination"
     
     elif answer == "D":
