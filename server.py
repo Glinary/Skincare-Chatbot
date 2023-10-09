@@ -324,7 +324,7 @@ def post_q_five(sender_id, option):
     elif (option2 == 'A' or option2 == 'B' or option2 == 'E'):
       print("COMBINATION SKIN TYPE")
       skin_type = 'Combination'
-    elif (option2 == F):
+    elif (option2 == 'F'):
       skin_type = 'Sensitive'
   elif (option1 == 'B'):
     if (option2 == 'B'):
