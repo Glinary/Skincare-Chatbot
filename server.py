@@ -1,6 +1,4 @@
-# TODO: Fix routing of webhooks
-# TODO: Diagnosis logic
-# TODO: Update persistent menu
+# TODO: Session management
 
 # ---------- DEPENDENCIES ---------- #
 'pip install typing'
@@ -78,15 +76,18 @@ def webhook():
         
         # Send a message to sender
         #send_menu(sender_id)
-        
         answer = get_answer()
-        if (answer == 'Diagnose skin'):
+        if (answer == 'Get Started' or answer == 'Get started'):
+          return redirect(url_for('get_menu', sender_id=sender_id))
+        elif (answer == 'Diagnose skin'):
           return redirect(url_for('get_q_one', sender_id=sender_id))
         
         if ('postback' in messaging_event):
           payload = messaging_event['postback']['payload']
           title = messaging_event['postback']['title']
-          if (payload == 'q_one'):
+          if (payload == 'get_menu'):
+            return redirect(url_for('get_q_one', sender_id=sender_id))
+          elif (payload == 'q_one'):
             options_dict['option1'] = title
             return post_q_one(sender_id, title)
           elif (payload == 'q_two'):
@@ -103,6 +104,28 @@ def webhook():
             return post_q_five(sender_id, title)
           elif (payload == 'assessment'):
             return redirect(url_for('get_q_one', sender_id=sender_id))
+  
+  return 'OK', 200
+
+@app.route('/get_menu', methods=['GET'])
+def get_menu():
+  print("You are on get_menu()")
+  sender_id = request.args.get("sender_id")
+  elements = Elements()
+  buttons1 = Buttons()
+  bot_response1 = "Hi! I am Scire Technology Bot."
+  bot_prompt = "Choose a command"
+  instructions = ""
+  options1 = ['Diagnose skin']
+  
+  send_api.send_text_message(bot_response1, sender_id)
+  for option in options1:
+    button = Button(button_type=POSTBACK, title=option)
+    button.set_payload(payload='get_menu')
+    buttons1.add_button(button.get_content())
+  element1 = Element(title=bot_prompt, subtitle=instructions, image_url="", buttons=buttons1.get_content())
+  elements.add_element(element1.get_content())
+  send_api.send_generic_message(elements.get_content(), sender_id)  
   
   return 'OK', 200
 
@@ -419,6 +442,10 @@ def get_answer():
       for messaging_event in entry['messaging']:
         if 'postback' in messaging_event:
           message = messaging_event['postback']['title']
+          print("postback message:", message)
+          return message
+        elif 'message' in messaging_event:
+          message = messaging_event['message']['text']
           print("message:", message)
           return message
         
