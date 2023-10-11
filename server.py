@@ -1,3 +1,7 @@
+# TODO: Fix routing of webhooks
+# TODO: Diagnosis logic
+# TODO: Update persistent menu
+
 # ---------- DEPENDENCIES ---------- #
 'pip install typing'
 'pip install python-dotenv'
@@ -266,7 +270,7 @@ class Database:
     send_api.send_generic_message(self.elements.get_content(), self.sender_id)  
     
   def get_q_four_from_db(self):
-    print("You are on get_q_four()")
+    print("You are on get_q_four_from_db()")
     self.elements = Elements()
     self.buttons1 = Buttons()
     self.bot_response1 = "How frequently do you have breakouts or active acne lesions?"
@@ -293,7 +297,7 @@ class Database:
     self.options1 = ['Yes', 'No']
 
     send_api.send_text_message(self.bot_response1, self.sender_id)
-    for option in options1:
+    for option in self.options1:
       self.button = Button(button_type=POSTBACK, title=option)
       self.button.set_payload(payload='q_five')
       self.buttons1.add_button(self.button.get_content())
@@ -461,7 +465,7 @@ def post_q_four(sender_id, option):
   
 @app.route('/get_q_five', methods=['GET'])
 def get_q_five():
-  print("You are on get_q_four()")
+  print("You are on get_q_five()")
   sender_id = request.args.get("sender_id")
   db = Database(sender_id)  
   db.get_q_five_from_db()
