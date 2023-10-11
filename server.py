@@ -142,6 +142,12 @@ class Database:
       return option5
     else:
       return None
+    
+  def delete_user_record_from_db(self):
+    temp = self.chats.find_one({'sender_id': self.sender_id})
+    
+    if (temp):
+      self.chats.delete_many({'sender_id': self.sender_id})
   
   def get_menu_from_db(self):
     print("You are on get_menu_from_db()")
@@ -558,7 +564,6 @@ def get_assessment():
   sun_sensitive = request.args.get("sun_sensitive")
   elements = Elements()
   buttons1 = Buttons()
-  
   bot_response1 = f"""
   Diagnosis:
   Skin type: {skin_type}
@@ -570,6 +575,10 @@ def get_assessment():
   options1 = ['Diagnose my skin again']
   
   send_api.send_text_message(bot_response1, sender_id)
+  
+  # delete user record before asking prompt again
+  db = Database(sender_id)
+  db.delete_user_record_from_db()
   for option in options1:
     button = Button(button_type=POSTBACK, title=option)
     button.set_payload(payload='assessment')
