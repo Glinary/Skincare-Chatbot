@@ -395,6 +395,7 @@ def get_menu():
   print("You are on get_menu()")
   sender_id = request.args.get("sender_id")
   db = Database(sender_id) 
+  db.get_menu_from_db()
   
   return 'OK', 200
 
